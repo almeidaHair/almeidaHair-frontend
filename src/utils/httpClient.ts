@@ -1,7 +1,13 @@
 import { ApiError } from './apiError';
 import type { FieldErrors } from './validation';
 
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/$/, '');
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+
+if (import.meta.env.PROD && !configuredApiUrl) {
+  throw new Error('VITE_API_URL não foi configurada para o build de produção.');
+}
+
+const API_URL = (configuredApiUrl || 'http://localhost:3000/api').replace(/\/$/, '');
 
 interface ErrorPayload {
   status?: number;
