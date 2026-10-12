@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { ClipboardPlusIcon } from 'lucide-react';
+import { ClipboardPlusIcon, PencilIcon } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useAsync } from '../../hooks/useAsync';
 import { BackLink } from '../../components/ui/BackLink';
@@ -59,10 +59,16 @@ export function ClientDetail() {
             </p>
           </div>
         </div>
-        <Link to={newEvaluationHref} className={buttonClasses('primary', 'md', 'self-start sm:self-auto')}>
-          <ClipboardPlusIcon className="h-4 w-4" aria-hidden="true" />
-          Nova avaliação
-        </Link>
+        <div className="flex flex-wrap gap-2 self-start sm:self-auto">
+          <Link to={`/admin/clientes/${client.id}/editar`} className={buttonClasses('secondary', 'md')}>
+            <PencilIcon className="h-4 w-4" aria-hidden="true" />
+            Editar cliente
+          </Link>
+          <Link to={newEvaluationHref} className={buttonClasses('primary', 'md')}>
+            <ClipboardPlusIcon className="h-4 w-4" aria-hidden="true" />
+            Nova avaliação
+          </Link>
+        </div>
       </header>
 
       <div className="mt-8">

@@ -11,6 +11,7 @@ import { Login } from './pages/Login';
 import { ClientList } from './pages/admin/ClientList';
 import { ClientNew } from './pages/admin/ClientNew';
 import { ClientDetail } from './pages/admin/ClientDetail';
+import { ClientEdit } from './pages/admin/ClientEdit';
 import { EvaluationNew } from './pages/admin/EvaluationNew';
 import { EvaluationDetail } from './pages/EvaluationDetail';
 import { MyArea } from './pages/client/MyArea';
@@ -46,6 +47,7 @@ function AppContent() {
               <Route path="/admin" element={<ClientList />} />
               <Route path="/admin/clientes/nova" element={<ClientNew />} />
               <Route path="/admin/clientes/:clientId" element={<ClientDetail />} />
+              <Route path="/admin/clientes/:clientId/editar" element={<ClientEdit />} />
               <Route path="/admin/clientes/:clientId/avaliacoes/nova" element={<EvaluationNew />} />
               <Route path="/admin/clientes/:clientId/avaliacoes/:evaluationId" element={<EvaluationDetail />} />
             </Route>

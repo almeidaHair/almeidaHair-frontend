@@ -1,6 +1,7 @@
 import type {
   ChangePasswordInput,
   Client,
+  ClientEditableInput,
   ClientInput,
   ClientSummary,
   Evaluation,
@@ -42,6 +43,10 @@ export const api = {
 
   createClient(token: string | null, input: ClientInput): Promise<Client> {
     return request<Client>('clients', jsonBody(input), token);
+  },
+
+  updateClient(token: string | null, clientId: string, input: ClientEditableInput): Promise<Client> {
+    return request<Client>(`clients/${encodeURIComponent(clientId)}`, jsonBody(input, 'PATCH'), token);
   },
 
   getMe(token: string | null): Promise<Client> {

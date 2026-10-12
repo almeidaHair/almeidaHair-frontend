@@ -40,7 +40,7 @@ export interface Client {
   createdAt: string;
 }
 
-export interface ClientInput {
+export interface ClientEditableInput {
   name: string;
   birthDate: string;
   phone: string;
@@ -53,6 +53,9 @@ export interface ClientInput {
   notes: string;
   firstVisit: string;
   status: ClientStatus;
+}
+
+export interface ClientInput extends ClientEditableInput {
   password: string;
   lgpdConsent: boolean;
 }

@@ -1,4 +1,4 @@
-import type { ClientInput, EvaluationInput, ProfileInput } from '../types/models';
+import type { ClientEditableInput, ClientInput, EvaluationInput, ProfileInput } from '../types/models';
 
 export type FieldErrors = Record<string, string>;
 
@@ -27,10 +27,15 @@ export function validatePasswordChange(
   return errors;
 }
 
-export function validateClientInput(input: ClientInput): FieldErrors {
+export function validateClientEditInput(input: ClientEditableInput): FieldErrors {
   const errors: FieldErrors = {};
   if (!input.name.trim()) errors.name = 'Informe o nome completo.';
   if (!isValidEmail(input.email)) errors.email = 'Informe um e-mail válido.';
+  return errors;
+}
+
+export function validateClientInput(input: ClientInput): FieldErrors {
+  const errors = validateClientEditInput(input);
   if (input.password.length < 8) errors.password = 'A senha deve ter pelo menos 8 caracteres.';
   if (!input.lgpdConsent) errors.lgpdConsent = 'É necessário registrar o consentimento da cliente.';
   return errors;

@@ -10,18 +10,36 @@ import { statusOptions } from '../../data/hairOptions';
 import { generatePassword } from '../../utils/crypto';
 import { emptyClientInput } from '../../utils/evaluation';
 import { buttonClasses } from '../../utils/buttonStyles';
-import { FieldErrors, validateClientInput } from '../../utils/validation';
-import type { ClientInput, ClientStatus } from '../../types/models';
+import { FieldErrors, validateClientEditInput, validateClientInput } from '../../utils/validation';
+import type { ClientEditableInput, ClientInput, ClientStatus } from '../../types/models';
 
-interface ClientFormProps {
-  onSubmit: (input: ClientInput) => Promise<void>;
+interface BaseProps {
   submitting: boolean;
   serverErrors?: FieldErrors;
   cancelTo: string;
 }
 
-export function ClientForm({ onSubmit, submitting, serverErrors, cancelTo }: ClientFormProps) {
-  const [form, setForm] = useState<ClientInput>(() => emptyClientInput(generatePassword()));
+interface CreateProps extends BaseProps {
+  mode?: 'create';
+  onSubmit: (input: ClientInput) => Promise<void>;
+}
+
+interface EditProps extends BaseProps {
+  mode: 'edit';
+  initialValues: ClientEditableInput;
+  onSubmit: (input: ClientEditableInput) => Promise<void>;
+}
+
+type ClientFormProps = CreateProps | EditProps;
+
+export function ClientForm(props: ClientFormProps) {
+  const { submitting, serverErrors, cancelTo } = props;
+  const editing = props.mode === 'edit';
+  const [form, setForm] = useState<ClientInput>(() =>
+    editing
+      ? { ...props.initialValues, password: '', lgpdConsent: true }
+      : emptyClientInput(generatePassword())
+  );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [showPassword, setShowPassword] = useState(true);
 
@@ -32,16 +50,27 @@ export function ClientForm({ onSubmit, submitting, serverErrors, cancelTo }: Cli
   const set = <K extends keyof ClientInput,>(key: K, value: ClientInput[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key as string]) {
-      setErrors(({ [key as string]: _removed, ...rest }) => rest);
+      setErrors((current) => {
+        const remaining = { ...current };
+        delete remaining[key as string];
+        return remaining;
+      });
     }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const found = validateClientInput(form);
+    const found = editing ? validateClientEditInput(form) : validateClientInput(form);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
-    await onSubmit(form);
+    if (props.mode === 'edit') {
+      const { password, lgpdConsent, ...input } = form;
+      void password;
+      void lgpdConsent;
+      await props.onSubmit(input);
+    } else {
+      await props.onSubmit(form);
+    }
   };
 
   return (
@@ -124,67 +153,66 @@ export function ClientForm({ onSubmit, submitting, serverErrors, cancelTo }: Cli
       </FormSection>
 
       <FormSection number={5} title="Acesso da cliente">
-        <TextField
-          label="Senha provisória"
-          required
-          type={showPassword ? 'text' : 'password'}
-          autoComplete="new-password"
-          hint="Compartilhe com a cliente de forma privada. Mínimo de 8 caracteres."
-          value={form.password}
-          error={errors.password}
-          onChange={(e) => set('password', e.target.value)}
-          trailing={
-          <>
-              <button
-              type="button"
-              onClick={() => setShowPassword((v) => !v)}
-              aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-              className="grid h-8 w-8 place-items-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine">
-              
-                {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
-              </button>
-              <button
-              type="button"
-              onClick={() => set('password', generatePassword())}
-              aria-label="Gerar nova senha"
-              className="grid h-8 w-8 place-items-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine">
-              
-                <RefreshCwIcon className="h-4 w-4" />
-              </button>
-            </>
-          } />
-        
+        {!editing && (
+          <TextField
+            label="Senha provisória"
+            required
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="new-password"
+            hint="Compartilhe com a cliente de forma privada. Mínimo de 8 caracteres."
+            value={form.password}
+            error={errors.password}
+            onChange={(e) => set('password', e.target.value)}
+            trailing={
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                  className="grid h-8 w-8 place-items-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine">
+                  {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => set('password', generatePassword())}
+                  aria-label="Gerar nova senha"
+                  className="grid h-8 w-8 place-items-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine">
+                  <RefreshCwIcon className="h-4 w-4" />
+                </button>
+              </>
+            } />
+        )}
         <ChoiceGroup
           label="Status do acesso"
           options={statusOptions}
           value={form.status}
           onChange={(v: string) => set('status', (v || 'ativo') as ClientStatus)} />
-        
       </FormSection>
 
-      <div className="rounded-xl border border-gold/40 bg-blush px-4 py-4 sm:px-5">
-        <label className="flex cursor-pointer items-start gap-3">
-          <input
-            type="checkbox"
-            className="mt-0.5 h-4 w-4 shrink-0 accent-wine"
-            checked={form.lgpdConsent}
-            aria-invalid={errors.lgpdConsent ? true : undefined}
-            onChange={(e) => set('lgpdConsent', e.target.checked)} />
-          
-          <span className="text-sm leading-relaxed text-ink">
-            Confirmo que a cliente autorizou o tratamento dos seus dados pessoais para fins de atendimento e
-            acompanhamento, conforme a LGPD (Lei nº 13.709/2018).
-          </span>
-        </label>
-        {errors.lgpdConsent && <p className="mt-2 pl-7 text-xs font-medium text-wine">{errors.lgpdConsent}</p>}
-      </div>
+      {!editing && (
+        <div className="rounded-xl border border-gold/40 bg-blush px-4 py-4 sm:px-5">
+          <label className="flex cursor-pointer items-start gap-3">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0 accent-wine"
+              checked={form.lgpdConsent}
+              aria-invalid={errors.lgpdConsent ? true : undefined}
+              onChange={(e) => set('lgpdConsent', e.target.checked)} />
+            <span className="text-sm leading-relaxed text-ink">
+              Confirmo que a cliente autorizou o tratamento dos seus dados pessoais para fins de atendimento e
+              acompanhamento, conforme a LGPD (Lei nº 13.709/2018).
+            </span>
+          </label>
+          {errors.lgpdConsent && <p className="mt-2 pl-7 text-xs font-medium text-wine">{errors.lgpdConsent}</p>}
+        </div>
+      )}
 
       <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
         <Link to={cancelTo} className={buttonClasses('secondary', 'lg')}>
           Cancelar
         </Link>
         <Button type="submit" size="lg" loading={submitting}>
-          Salvar cadastro
+          {editing ? 'Salvar alterações' : 'Salvar cadastro'}
         </Button>
       </div>
     </form>);
