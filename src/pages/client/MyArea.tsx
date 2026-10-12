@@ -92,7 +92,7 @@ export function MyArea() {
 
         <ul className="grid gap-3 lg:grid-cols-2">
               {evaluations.map((ev) =>
-          <li key={ev.id}>
+          <li key={ev.id} className="min-w-0">
                   <EvaluationCard evaluation={ev} href={`/minha-area/avaliacoes/${ev.id}`} />
                 </li>
           )}

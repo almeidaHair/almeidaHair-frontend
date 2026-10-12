@@ -24,7 +24,7 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-blush">
       <header className="sticky top-0 z-20 border-b border-gold/40 bg-surface/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-1 px-3 sm:gap-4 sm:px-6">
           <Link
             to={homeFor(session.role)}
             className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30"
@@ -32,7 +32,7 @@ export function AppShell() {
             
             <BrandMark />
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-3">
             <Link
               to="/perfil"
               aria-label="Abrir perfil da conta"
@@ -43,7 +43,7 @@ export function AppShell() {
                 <p className="text-xs text-ink-muted">{session.role === 'admin' ? 'Administração' : 'Área da cliente'}</p>
               </div>
             </Link>
-            <span aria-hidden="true" className="h-8 w-px bg-line" />
+            <span aria-hidden="true" className="hidden h-8 w-px bg-line sm:block" />
             <button
               type="button"
               onClick={toggleTheme}
@@ -60,10 +60,10 @@ export function AppShell() {
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex h-9 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
-              
+              aria-label="Sair da conta"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30 sm:w-auto sm:gap-2 sm:px-3">
               <LogOutIcon className="h-4 w-4" aria-hidden="true" />
-              Sair
+              <span className="hidden sm:inline">Sair</span>
             </button>
           </div>
         </div>
