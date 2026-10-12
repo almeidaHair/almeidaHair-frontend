@@ -14,7 +14,7 @@ const sizes: Record<ButtonSize, string> = {
 
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-wine text-white hover:bg-wine-dark',
-  secondary: 'border border-petal-border bg-white text-wine hover:bg-petal/50',
+  secondary: 'border border-petal-border bg-surface text-wine hover:bg-petal/50',
   ghost: 'text-ink-muted hover:bg-petal/50 hover:text-wine'
 };
 

@@ -18,7 +18,7 @@ export function ClientResults({ clients, refreshing }: ClientResultsProps) {
   return (
     <div aria-busy={refreshing} className={`transition-opacity duration-150 ${refreshing ? 'opacity-60' : 'opacity-100'}`}>
       {/* Mobile list */}
-      <ul className="divide-y divide-line/80 overflow-hidden rounded-2xl border border-petal-border bg-white md:hidden">
+      <ul className="divide-y divide-line/80 overflow-hidden rounded-2xl border border-petal-border bg-surface md:hidden">
         {clients.map((c) =>
         <li key={c.id}>
             <Link
@@ -38,7 +38,7 @@ export function ClientResults({ clients, refreshing }: ClientResultsProps) {
       </ul>
 
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-2xl border border-petal-border bg-white md:block">
+      <div className="hidden overflow-hidden rounded-2xl border border-petal-border bg-surface md:block">
         <table className="w-full text-left text-sm">
           <thead className="border-b border-petal-border bg-petal/40">
             <tr className="text-[12px] uppercase tracking-[0.06em] text-wine">

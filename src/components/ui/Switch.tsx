@@ -19,7 +19,7 @@ export function Switch({ checked, onChange, label, description }: SwitchProps) {
         aria-describedby={description ? `${id}-desc` : undefined}
         onClick={() => onChange(!checked)}
         className={`relative mt-0.5 inline-flex h-6 w-11 shrink-0 rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/40 focus-visible:ring-offset-2 ${
-        checked ? 'bg-wine' : 'bg-[#D3C3C9]'}`
+        checked ? 'bg-wine' : 'bg-line'}`
         }>
         
         <span

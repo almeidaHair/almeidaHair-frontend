@@ -14,7 +14,7 @@ export function SheetFrame({ children, floral = false, className = '' }: SheetFr
   return (
     <div
       className={twMerge(
-        'rounded-2xl bg-white p-2 shadow-[0_1px_2px_rgba(43,27,34,0.04),0_12px_32px_-16px_rgba(140,45,79,0.25)] sm:p-3',
+        'rounded-2xl bg-surface p-2 shadow-[0_1px_2px_rgb(var(--ink)/0.04),0_12px_32px_-16px_rgb(var(--wine)/0.25)] sm:p-3',
         className
       )}>
       

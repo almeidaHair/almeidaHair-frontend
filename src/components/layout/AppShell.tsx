@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { LogOutIcon, ShieldCheckIcon } from 'lucide-react';
+import { LogOutIcon, MoonIcon, ShieldCheckIcon, SunIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { homeFor } from '../../utils/routes';
 import { BrandMark } from '../brand/BrandMark';
 import { Avatar } from '../ui/Avatar';
 
 export function AppShell() {
   const { session, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   if (!session) return null;
@@ -21,7 +23,7 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-blush">
-      <header className="sticky top-0 z-20 border-b border-gold/40 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-gold/40 bg-surface/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link
             to={homeFor(session.role)}
@@ -42,6 +44,19 @@ export function AppShell() {
               </div>
             </Link>
             <span aria-hidden="true" className="h-8 w-px bg-line" />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Ativar tema escuro' : 'Ativar tema claro'}
+              aria-pressed={theme === 'dark'}
+              title={theme === 'light' ? 'Ativar tema escuro' : 'Ativar tema claro'}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink-muted transition-colors duration-150 hover:bg-petal/60 hover:text-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
+              {theme === 'light' ? (
+                <MoonIcon className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <SunIcon className="h-4 w-4" aria-hidden="true" />
+              )}
+            </button>
             <button
               type="button"
               onClick={handleLogout}

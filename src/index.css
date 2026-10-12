@@ -8,14 +8,58 @@
 
 /* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
 
+:root {
+  --wine: 140 45 79;
+  --wine-dark: 110 31 60;
+  --petal: 248 221 231;
+  --petal-border: 232 184 202;
+  --blush: 251 242 242;
+  --surface: 255 255 255;
+  --gold: 196 160 98;
+  --gold-soft: 233 217 184;
+  --ink: 43 27 34;
+  --ink-muted: 107 90 97;
+  --ink-faint: 163 148 154;
+  --line: 230 218 222;
+  --sage: 47 107 69;
+  --sage-soft: 228 240 231;
+  color-scheme: light;
+}
+
+.dark {
+  --wine: 225 122 157;
+  --wine-dark: 190 82 121;
+  --petal: 70 38 52;
+  --petal-border: 102 57 75;
+  --blush: 23 18 22;
+  --surface: 35 28 33;
+  --gold: 218 183 120;
+  --gold-soft: 244 221 174;
+  --ink: 248 239 242;
+  --ink-muted: 207 187 195;
+  --ink-faint: 158 137 146;
+  --line: 77 62 69;
+  --sage: 116 190 141;
+  --sage-soft: 30 64 42;
+  color-scheme: dark;
+}
+
 html,
 body,
 #root {
   min-height: 100%;
 }
+
 body {
-  background-color: #fbf2f2;
-  color: #2b1b22;
+  background-color: rgb(var(--blush));
+  color: rgb(var(--ink));
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }

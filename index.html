@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#8C2D4F" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (() => {
+        const saved = localStorage.getItem('almeida-hair-theme');
+        const dark = saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#171216' : '#8C2D4F';
+      })();
+    </script>
     <title>Almeida Hair</title>
   </head>
   <body>

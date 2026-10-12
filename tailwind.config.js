@@ -1,17 +1,24 @@
-export default {content: [
+export default {
+  darkMode: 'class',
+  content: [
   './index.html',
   './src/**/*.{js,ts,jsx,tsx}'
 ],
   theme: {
     extend: {
       colors: {
-        wine: { DEFAULT: '#8C2D4F', dark: '#6E1F3C' },
-        petal: { DEFAULT: '#F8DDE7', border: '#E8B8CA' },
-        blush: '#FBF2F2',
-        gold: { DEFAULT: '#C4A062', soft: '#E9D9B8' },
-        ink: { DEFAULT: '#2B1B22', muted: '#6B5A61', faint: '#A3949A' },
-        line: '#E6DADE',
-        sage: { DEFAULT: '#2F6B45', soft: '#E4F0E7' },
+        wine: { DEFAULT: 'rgb(var(--wine) / <alpha-value>)', dark: 'rgb(var(--wine-dark) / <alpha-value>)' },
+        petal: { DEFAULT: 'rgb(var(--petal) / <alpha-value>)', border: 'rgb(var(--petal-border) / <alpha-value>)' },
+        blush: 'rgb(var(--blush) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        gold: { DEFAULT: 'rgb(var(--gold) / <alpha-value>)', soft: 'rgb(var(--gold-soft) / <alpha-value>)' },
+        ink: {
+          DEFAULT: 'rgb(var(--ink) / <alpha-value>)',
+          muted: 'rgb(var(--ink-muted) / <alpha-value>)',
+          faint: 'rgb(var(--ink-faint) / <alpha-value>)'
+        },
+        line: 'rgb(var(--line) / <alpha-value>)',
+        sage: { DEFAULT: 'rgb(var(--sage) / <alpha-value>)', soft: 'rgb(var(--sage-soft) / <alpha-value>)' },
       },
       fontFamily: {
         serif: ['"Libre Baskerville"', 'Georgia', 'serif'],

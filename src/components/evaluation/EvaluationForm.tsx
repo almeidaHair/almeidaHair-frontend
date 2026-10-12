@@ -31,7 +31,7 @@ interface EvaluationFormProps {
 type Section = 'hair' | 'scalp' | 'professional';
 
 const inlineInput =
-'min-w-[140px] flex-1 border-0 border-b border-[#CDBDC4] bg-transparent px-0 py-1 text-sm text-ink placeholder:text-ink-faint transition-colors duration-150 focus:border-wine focus:outline-none focus:ring-0';
+'min-w-[140px] flex-1 border-0 border-b border-line bg-transparent px-0 py-1 text-sm text-ink placeholder:text-ink-faint transition-colors duration-150 focus:border-wine focus:outline-none focus:ring-0';
 
 export function EvaluationForm({ onSubmit, submitting, serverErrors, cancelTo }: EvaluationFormProps) {
   const [form, setForm] = useState<EvaluationInput>(emptyEvaluationInput);

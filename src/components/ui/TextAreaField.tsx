@@ -22,8 +22,8 @@ export function TextAreaField({ label, error, className = '', id, required, rows
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${inputId}-error` : undefined}
         className={twMerge(
-          'mt-2 w-full resize-y rounded-lg border bg-white px-3 py-2.5 text-[15px] text-ink transition-[border-color,box-shadow] duration-150 placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-wine/15',
-          error ? 'border-wine' : 'border-[#CDBDC4] focus:border-wine'
+          'mt-2 w-full resize-y rounded-lg border bg-surface px-3 py-2.5 text-[15px] text-ink transition-[border-color,box-shadow] duration-150 placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-wine/15',
+          error ? 'border-wine' : 'border-line focus:border-wine'
         )}
         {...rest} />
       

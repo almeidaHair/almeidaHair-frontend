@@ -49,7 +49,7 @@ export function ClientList() {
           placeholder="Buscar pelo nome"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-12 w-full rounded-full border border-petal-border bg-white pl-11 pr-11 text-[15px] text-ink placeholder:text-ink-muted transition-[border-color,box-shadow] duration-150 focus:border-wine focus:outline-none focus:ring-2 focus:ring-wine/15 [&::-webkit-search-cancel-button]:hidden" />
+          className="h-12 w-full rounded-full border border-petal-border bg-surface pl-11 pr-11 text-[15px] text-ink placeholder:text-ink-muted transition-[border-color,box-shadow] duration-150 focus:border-wine focus:outline-none focus:ring-2 focus:ring-wine/15 [&::-webkit-search-cancel-button]:hidden" />
         
         {query &&
         <button
@@ -69,7 +69,7 @@ export function ClientList() {
         !data ?
         <div className="space-y-2" aria-hidden="true">
             {Array.from({ length: 5 }).map((_, i) =>
-          <div key={i} className="h-16 animate-pulse rounded-xl bg-white/80" />
+          <div key={i} className="h-16 animate-pulse rounded-xl bg-surface/80" />
           )}
           </div> :
         data.length === 0 ?

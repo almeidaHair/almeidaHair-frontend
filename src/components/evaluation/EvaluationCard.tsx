@@ -15,7 +15,7 @@ export function EvaluationCard({ evaluation, href, showVisibility = false }: Eva
   return (
     <Link
       to={href}
-      className="group flex h-full items-stretch gap-4 rounded-xl border border-petal-border bg-white p-4 transition-colors duration-150 hover:border-wine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
+      className="group flex h-full items-stretch gap-4 rounded-xl border border-petal-border bg-surface p-4 transition-colors duration-150 hover:border-wine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
       
       <div className="flex w-14 shrink-0 flex-col items-center justify-center rounded-lg bg-petal/60 py-2 text-wine">
         <span className="font-serif text-xl font-bold leading-none">{formatDate(evaluation.date, 'dd')}</span>

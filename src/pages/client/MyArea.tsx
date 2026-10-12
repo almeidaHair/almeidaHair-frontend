@@ -100,7 +100,7 @@ export function MyArea() {
 
 
         <div className="space-y-6">
-            <p className="flex items-start gap-2 rounded-xl border border-gold/40 bg-white px-4 py-3 text-sm text-ink-muted">
+            <p className="flex items-start gap-2 rounded-xl border border-gold/40 bg-surface px-4 py-3 text-sm text-ink-muted">
               <LockIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
               Seus dados são somente para consulta. Para atualizar alguma informação, fale com o salão.
             </p>

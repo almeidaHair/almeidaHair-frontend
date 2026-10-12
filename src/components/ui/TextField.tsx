@@ -28,8 +28,8 @@ export function TextField({ label, error, hint, trailing, className = '', id, re
           className={twMerge(
             'mt-1 w-full border-0 border-b bg-transparent px-0 py-2 text-[15px] text-ink transition-[border-color,box-shadow] duration-150 placeholder:text-ink-faint focus:outline-none focus:ring-0',
             error ?
-            'border-wine shadow-[0_1px_0_0_#8C2D4F]' :
-            'border-[#CDBDC4] focus:border-wine focus:shadow-[0_1px_0_0_#8C2D4F]',
+            'border-wine shadow-[0_1px_0_0_rgb(var(--wine))]' :
+            'border-line focus:border-wine focus:shadow-[0_1px_0_0_rgb(var(--wine))]',
             trailing ? 'pr-24' : ''
           )}
           {...rest} />
