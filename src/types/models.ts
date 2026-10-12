@@ -127,12 +127,3 @@ export interface Evaluation extends EvaluationInput {
 export interface EvaluationWithClient extends Evaluation {
   clientName: string;
 }
-
-export interface SeedUser {
-  id: string;
-  email: string;
-  name: string;
-  role: Role;
-  clientId?: string;
-  password: string;
-}

@@ -15,7 +15,7 @@ O sistema possui duas áreas de acesso:
 
 - Autenticação administrativa;
 - Listagem e pesquisa de clientes;
-- Cadastro de clientes;
+- Cadastro e edição de clientes;
 - Consulta dos dados cadastrais de cada cliente;
 - Criação de avaliações capilares;
 - Registro de características dos fios e do couro cabeludo;
@@ -72,22 +72,6 @@ O endereço local será exibido pelo Vite no terminal, normalmente:
 http://localhost:5173
 ```
 
-## Contas de demonstração
-
-### Administrador
-
-```text
-E-mail: admin@almeidahair.com
-Senha: admin123
-```
-
-### Cliente
-
-```text
-E-mail: mariana@email.com
-Senha: cliente123
-```
-
 ## Comandos disponíveis
 
 ```powershell
@@ -119,20 +103,14 @@ Verifica o código com o ESLint.
 ```text
 src/
 ├── components/   # Componentes visuais e de formulário
-├── contexts/     # Contexto de autenticação
-├── data/         # Dados iniciais de demonstração
+├── contexts/     # Contextos de autenticação e tema
+├── data/         # Opções estáticas da interface
 ├── hooks/        # Hooks reutilizáveis
 ├── pages/        # Páginas administrativas e da cliente
 ├── types/        # Tipos e modelos do domínio
-└── utils/        # Validação, rotas, criptografia e servidor simulado
+└── utils/        # Cliente HTTP, validação, rotas e utilitários
 ```
 
-## Armazenamento de dados
+## Integração com a API
 
-Atualmente, o projeto utiliza um servidor simulado no próprio frontend. Clientes, avaliações, usuários e sessões são armazenados localmente no navegador para fins de desenvolvimento e demonstração.
-
-Os dados podem ser removidos ao limpar o armazenamento do site no navegador. Essa implementação não deve ser utilizada para armazenar dados reais ou sensíveis em produção.
-
-## Situação atual
-
-O projeto corresponde ao frontend demonstrativo do sistema Almeida Hair. Para utilização em produção, será necessária a integração com um backend responsável por autenticação, autorização e persistência segura dos dados.
+O frontend consome a API do Almeida Hair para autenticação, autorização e persistência dos dados. Configure a URL da API conforme o ambiente antes de iniciar a aplicação.
