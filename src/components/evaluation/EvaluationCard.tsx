@@ -15,7 +15,7 @@ export function EvaluationCard({ evaluation, href, showVisibility = false }: Eva
   return (
     <Link
       to={href}
-      className="group flex h-full items-stretch gap-4 rounded-xl border border-petal-border bg-white p-4 transition-colors duration-150 hover:border-wine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
+      className="group flex h-full min-w-0 items-stretch gap-3 rounded-xl border border-petal-border bg-surface p-3 transition-colors sm:gap-4 sm:p-4 duration-150 hover:border-wine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
       
       <div className="flex w-14 shrink-0 flex-col items-center justify-center rounded-lg bg-petal/60 py-2 text-wine">
         <span className="font-serif text-xl font-bold leading-none">{formatDate(evaluation.date, 'dd')}</span>
@@ -25,7 +25,7 @@ export function EvaluationCard({ evaluation, href, showVisibility = false }: Eva
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-xs text-ink-muted">Avaliação capilar · {evaluation.authorName}</p>
+          <p className="min-w-0 break-words text-xs text-ink-muted">Avaliação capilar · {evaluation.authorName}</p>
           {showVisibility && !evaluation.sharedWithClient &&
           <span className="inline-flex items-center gap-1 rounded-full bg-line/70 px-2 py-px text-[11px] font-medium text-ink-muted">
               <EyeOffIcon className="h-3 w-3" aria-hidden="true" />

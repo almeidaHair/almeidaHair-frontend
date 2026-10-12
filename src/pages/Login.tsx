@@ -8,7 +8,6 @@ import { BrandMark } from '../components/brand/BrandMark';
 import { TextField } from '../components/ui/TextField';
 import { Button } from '../components/ui/Button';
 import { LoadingState } from '../components/ui/LoadingState';
-import { demoAccounts } from '../data/seed';
 import { homeFor } from '../utils/routes';
 import { isValidEmail } from '../utils/validation';
 
@@ -110,27 +109,6 @@ export function Login() {
               </Button>
             </div>
           </form>
-
-          <div className="mt-7 border-t border-line pt-5">
-            <p className="text-center text-xs text-ink-muted">Acesso de demonstração</p>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              {demoAccounts.map((account) =>
-              <button
-                key={account.email}
-                type="button"
-                onClick={() => {
-                  setEmail(account.email);
-                  setPassword(account.password);
-                  setError('');
-                }}
-                className="rounded-lg border border-petal-border px-3 py-2 text-left transition-colors duration-150 hover:bg-petal/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
-                
-                  <span className="block text-sm font-semibold text-wine">{account.label}</span>
-                  <span className="block truncate text-xs text-ink-muted">{account.email}</span>
-                </button>
-              )}
-            </div>
-          </div>
         </SheetFrame>
 
         <p className="mt-5 flex items-start justify-center gap-1.5 px-4 text-center text-xs leading-relaxed text-ink-muted">

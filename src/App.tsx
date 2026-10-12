@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { Toaster } from 'sonner';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { AppShell } from './components/layout/AppShell';
 import { RootRedirect } from './components/layout/RootRedirect';
@@ -10,18 +11,31 @@ import { Login } from './pages/Login';
 import { ClientList } from './pages/admin/ClientList';
 import { ClientNew } from './pages/admin/ClientNew';
 import { ClientDetail } from './pages/admin/ClientDetail';
+import { ClientEdit } from './pages/admin/ClientEdit';
 import { EvaluationNew } from './pages/admin/EvaluationNew';
 import { EvaluationDetail } from './pages/EvaluationDetail';
 import { MyArea } from './pages/client/MyArea';
+import { Profile } from './pages/Profile';
 
-export function App() {
+function AppContent() {
+  const { theme } = useTheme();
+
   return (
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
         <AuthProvider>
-          <Toaster position="top-center" toastOptions={{ style: { fontFamily: 'Inter, sans-serif', borderRadius: 12 } }} />
+          <Toaster theme={theme} position="top-center" toastOptions={{ style: { fontFamily: 'Inter, sans-serif', borderRadius: 12 } }} />
           <Routes>
             <Route path="/login" element={<Login />} />
+
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppShell />
+                </ProtectedRoute>
+              }>
+              <Route path="/perfil" element={<Profile />} />
+            </Route>
 
             <Route
               element={
@@ -33,6 +47,7 @@ export function App() {
               <Route path="/admin" element={<ClientList />} />
               <Route path="/admin/clientes/nova" element={<ClientNew />} />
               <Route path="/admin/clientes/:clientId" element={<ClientDetail />} />
+              <Route path="/admin/clientes/:clientId/editar" element={<ClientEdit />} />
               <Route path="/admin/clientes/:clientId/avaliacoes/nova" element={<EvaluationNew />} />
               <Route path="/admin/clientes/:clientId/avaliacoes/:evaluationId" element={<EvaluationDetail />} />
             </Route>
@@ -52,6 +67,14 @@ export function App() {
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-    </MotionConfig>);
+    </MotionConfig>
+  );
+}
 
+export function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
 }

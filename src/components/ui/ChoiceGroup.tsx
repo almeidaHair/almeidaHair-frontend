@@ -74,7 +74,7 @@ export function ChoiceGroup(props: ChoiceGroupProps) {
               <span
                 aria-hidden="true"
                 className={`grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[4px] border transition-colors duration-150 peer-focus-visible:ring-2 peer-focus-visible:ring-wine/30 peer-focus-visible:ring-offset-1 ${
-                checked ? 'border-wine bg-wine' : 'border-[#BFAFB6] bg-white'}`
+                checked ? 'border-wine bg-wine' : 'border-line bg-surface'}`
                 }>
                 
                 {checked && <CheckIcon className="h-3 w-3 text-white" strokeWidth={3} />}

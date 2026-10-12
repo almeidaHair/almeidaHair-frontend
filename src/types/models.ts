@@ -12,6 +12,16 @@ export interface Session {
   expiresAt: number;
 }
 
+export interface ProfileInput {
+  name: string;
+  email: string;
+}
+
+export interface ChangePasswordInput {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export interface Client {
   id: string;
   name: string;
@@ -30,7 +40,7 @@ export interface Client {
   createdAt: string;
 }
 
-export interface ClientInput {
+export interface ClientEditableInput {
   name: string;
   birthDate: string;
   phone: string;
@@ -43,6 +53,9 @@ export interface ClientInput {
   notes: string;
   firstVisit: string;
   status: ClientStatus;
+}
+
+export interface ClientInput extends ClientEditableInput {
   password: string;
   lgpdConsent: boolean;
 }
@@ -113,13 +126,4 @@ export interface Evaluation extends EvaluationInput {
 
 export interface EvaluationWithClient extends Evaluation {
   clientName: string;
-}
-
-export interface SeedUser {
-  id: string;
-  email: string;
-  name: string;
-  role: Role;
-  clientId?: string;
-  password: string;
 }

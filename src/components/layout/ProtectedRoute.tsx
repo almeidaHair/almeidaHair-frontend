@@ -6,7 +6,7 @@ import { LoadingState } from '../ui/LoadingState';
 import type { Role } from '../../types/models';
 
 interface ProtectedRouteProps {
-  role: Role;
+  role?: Role;
   children?: ReactNode;
 }
 
@@ -22,7 +22,7 @@ export function ProtectedRoute({ role, children }: ProtectedRouteProps) {
 
   }
   if (!session) return <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />;
-  if (session.role !== role) return <Navigate to={homeFor(session.role)} replace />;
+  if (role && session.role !== role) return <Navigate to={homeFor(session.role)} replace />;
 
   return <>{children ?? <Outlet />}</>;
 }

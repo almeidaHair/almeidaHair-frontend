@@ -29,7 +29,7 @@ export function FormSection({ number, title, children, className = '' }: FormSec
         <span aria-hidden="true" className="ml-2 h-px flex-1 bg-gold/60" />
         <Sparkle className="h-3 w-3 shrink-0 text-gold" />
       </div>
-      <div className="rounded-xl border border-petal-border bg-white px-4 py-3 sm:px-5 sm:py-4">{children}</div>
+      <div className="rounded-xl border border-petal-border bg-surface px-4 py-3 sm:px-5 sm:py-4">{children}</div>
     </section>);
 
 }
