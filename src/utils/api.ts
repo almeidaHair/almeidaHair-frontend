@@ -1,16 +1,18 @@
 import type {
+  ChangePasswordInput,
   Client,
   ClientInput,
   ClientSummary,
   Evaluation,
   EvaluationInput,
   EvaluationWithClient,
+  ProfileInput,
   Session
 } from '../types/models';
 import { request } from './httpClient';
 
-function jsonBody(value: unknown): RequestInit {
-  return { method: 'POST', body: JSON.stringify(value) };
+function jsonBody(value: unknown, method = 'POST'): RequestInit {
+  return { method, body: JSON.stringify(value) };
 }
 
 export const api = {
@@ -24,6 +26,14 @@ export const api = {
 
   logout(token: string | null): Promise<void> {
     return request<void>('auth/logout', { method: 'POST' }, token);
+  },
+
+  updateProfile(token: string | null, input: ProfileInput): Promise<Session> {
+    return request<Session>('auth/profile', jsonBody(input, 'PATCH'), token);
+  },
+
+  changePassword(token: string | null, input: ChangePasswordInput): Promise<void> {
+    return request<void>('auth/password', jsonBody(input, 'PATCH'), token);
   },
 
   listClients(token: string | null, query: string): Promise<ClientSummary[]> {

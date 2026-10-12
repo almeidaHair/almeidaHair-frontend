@@ -13,6 +13,7 @@ import { ClientDetail } from './pages/admin/ClientDetail';
 import { EvaluationNew } from './pages/admin/EvaluationNew';
 import { EvaluationDetail } from './pages/EvaluationDetail';
 import { MyArea } from './pages/client/MyArea';
+import { Profile } from './pages/Profile';
 
 export function App() {
   return (
@@ -22,6 +23,15 @@ export function App() {
           <Toaster position="top-center" toastOptions={{ style: { fontFamily: 'Inter, sans-serif', borderRadius: 12 } }} />
           <Routes>
             <Route path="/login" element={<Login />} />
+
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppShell />
+                </ProtectedRoute>
+              }>
+              <Route path="/perfil" element={<Profile />} />
+            </Route>
 
             <Route
               element={

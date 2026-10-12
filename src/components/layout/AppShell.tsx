@@ -31,14 +31,17 @@ export function AppShell() {
             <BrandMark />
           </Link>
           <div className="flex items-center gap-3">
-            <div className="hidden items-center gap-3 sm:flex">
+            <Link
+              to="/perfil"
+              aria-label="Abrir perfil da conta"
+              className="flex items-center gap-3 rounded-lg p-1 transition-colors duration-150 hover:bg-petal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine/30">
               <Avatar name={session.name} size="sm" />
-              <div className="leading-tight">
+              <div className="hidden leading-tight sm:block">
                 <p className="text-sm font-medium text-ink">{session.name}</p>
                 <p className="text-xs text-ink-muted">{session.role === 'admin' ? 'Administração' : 'Área da cliente'}</p>
               </div>
-            </div>
-            <span aria-hidden="true" className="hidden h-8 w-px bg-line sm:block" />
+            </Link>
+            <span aria-hidden="true" className="h-8 w-px bg-line" />
             <button
               type="button"
               onClick={handleLogout}

@@ -12,6 +12,16 @@ export interface Session {
   expiresAt: number;
 }
 
+export interface ProfileInput {
+  name: string;
+  email: string;
+}
+
+export interface ChangePasswordInput {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export interface Client {
   id: string;
   name: string;

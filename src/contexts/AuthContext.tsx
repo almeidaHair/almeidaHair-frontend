@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { api } from '../utils/api';
-import type { Session } from '../types/models';
+import type { ChangePasswordInput, ProfileInput, Session } from '../types/models';
 
 type AuthStatus = 'loading' | 'ready';
 
@@ -11,6 +11,8 @@ interface AuthContextValue {
   status: AuthStatus;
   login: (email: string, password: string) => Promise<Session>;
   logout: () => Promise<void>;
+  updateProfile: (input: ProfileInput) => Promise<Session>;
+  changePassword: (input: ChangePasswordInput) => Promise<void>;
   expireSession: () => void;
 }
 
@@ -52,6 +54,18 @@ export function AuthProvider({ children }: {children: ReactNode;}) {
       // Session is already cleared locally.
     }}, []);
 
+  const updateProfile = useCallback(async (input: ProfileInput) => {
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    const updatedSession = await api.updateProfile(token, input);
+    setSession(updatedSession);
+    return updatedSession;
+  }, []);
+
+  const changePassword = useCallback(async (input: ChangePasswordInput) => {
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    await api.changePassword(token, input);
+  }, []);
+
   const expireSession = useCallback(() => {
     sessionStorage.removeItem(TOKEN_KEY);
     setSession((current) => {
@@ -61,8 +75,17 @@ export function AuthProvider({ children }: {children: ReactNode;}) {
   }, []);
 
   const value = useMemo(
-    () => ({ session, token: session?.token ?? null, status, login, logout, expireSession }),
-    [session, status, login, logout, expireSession]
+    () => ({
+      session,
+      token: session?.token ?? null,
+      status,
+      login,
+      logout,
+      updateProfile,
+      changePassword,
+      expireSession
+    }),
+    [session, status, login, logout, updateProfile, changePassword, expireSession]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
